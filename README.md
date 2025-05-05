@@ -147,9 +147,7 @@ Tahun 2025
    Satu motor dapat memiliki banyak gambar.
 
 7. **users → logs**: One-to-Many  
-   Setiap user (customer, admin, kurir) dapat memiliki banyak log aktivitas.
+   Setiap user (customer, admin, kurir) dapat memiliki banyak log aktivitas.  
 
-8. **orders → couriers**: Many-to-One  
-   Setiap order (pesanan) hanya dapat ditangani oleh satu kurir pada satu waktu.
 
 ---
