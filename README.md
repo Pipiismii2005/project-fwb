@@ -1,61 +1,155 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Manajemen Dealer Motor
 
+---
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/images/logo-unsulbar.png" alt="Logo Unsulbar" width="150"/>
 </p>
 
-## About Laravel
+**PIPI**  
+D0223307  
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Mata Kuliah Framework Web Based**  
+Tahun 2025  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Deskripsi
 
-## Learning Laravel
+**Sistem Manajemen Dealer Motor** adalah aplikasi berbasis web yang dirancang untuk mengelola seluruh proses operasional dealer motor — dari pencatatan stok motor, transaksi penjualan, hingga manajemen pelayanan dan karyawan. Sistem ini mendukung tiga jenis role pengguna:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Admin**: Kelola data user, motor, dan transaksi, konfirmasi transaksi, lihat semua data dan laporan.  
+2. **Sales**: Input data customer, buat dan kelola transaksi penjualan, lihat stok motor dan riwayat penjualannya.  
+3. **Customer**: Lihat katalog motor, ajukan pembelian, lihat status transaksi.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Fitur Utama
 
-## Laravel Sponsors
+1. **Autentikasi Pengguna**  
+   Pengguna dapat mendaftar, login, dan logout.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Pengelolaan Produk**  
+   Admin dapat menambahkan, mengedit, dan menghapus data motor, serta menyembunyikan produk dari katalog jika stok tidak tersedia.
 
-### Premium Partners
+3. **Pemesanan dan Pembelian Produk**  
+   Customer dapat melihat katalog motor, menambah ke keranjang, melakukan pemesanan, dan melacak status pesanan.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+4. **Manajemen Role Akses**  
+   Sistem mendukung tiga peran pengguna utama: Admin, Customer, dan Sales, masing-masing dengan hak akses yang berbeda.
 
-## Contributing
+5. **Pencarian Produk**  
+   Customer dapat mencari motor berdasarkan nama, merk, atau kategori.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Laporan Penjualan**  
+   Admin dapat melihat riwayat transaksi, ringkasan pendapatan, dan status pengiriman.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur Tabel
 
-## Security Vulnerabilities
+### A. Tabel `users`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Field           | Tipe Data                      | Deskripsi                                 |
+|----------------|--------------------------------|-------------------------------------------|
+| id             | BIGINT (Auto Increment)        | Primary key, ID unik pengguna             |
+| name           | VARCHAR(255)                   | Nama lengkap pengguna                     |
+| email          | VARCHAR(255)                   | Email unik untuk login                    |
+| phone          | VARCHAR(20)                    | Nomor HP pengguna (opsional)             |
+| address        | TEXT                           | Alamat pengguna (opsional)               |
+| password       | VARCHAR(255)                   | Password terenkripsi (bcrypt)             |
+| role           | ENUM('admin', 'sales', 'customer') | Peran pengguna dalam sistem          |
+| remember_token | VARCHAR(100)                   | Token untuk "remember me" saat login     |
+| created_at     | TIMESTAMP                      | Waktu data dibuat                         |
+| updated_at     | TIMESTAMP                      | Waktu data terakhir diubah                |
 
-## License
+### B. Tabel `motorcycles`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Field       | Tipe Data       | Deskripsi                             |
+|-------------|------------------|----------------------------------------|
+| id          | BIGINT           | Primary key                            |
+| merk        | VARCHAR(100)     | Merek motor                            |
+| tipe        | VARCHAR(100)     | Tipe/model motor                       |
+| tahun       | YEAR             | Tahun produksi                         |
+| warna       | VARCHAR(100)     | Warna motor                            |
+| harga       | DECIMAL(12,2)    | Harga motor                            |
+| stok        | INTEGER          | Jumlah stok tersedia                   |
+| deskripsi   | TEXT             | Deskripsi motor (opsional)            |
+| created_at  | TIMESTAMP        | Tanggal dibuat                         |
+| updated_at  | TIMESTAMP        | Tanggal diperbarui                     |
+
+### C. Tabel `customers`
+
+| Field        | Tipe Data        | Deskripsi                                 |
+|--------------|------------------|--------------------------------------------|
+| id           | BIGINT           | Primary key                                |
+| user_id      | BIGINT           | Relasi ke tabel `users`                    |
+| ktp_number   | VARCHAR(50)      | Nomor KTP                                  |
+| pekerjaan    | VARCHAR(100)     | Pekerjaan customer (opsional)              |
+| penghasilan  | DECIMAL(12,2)    | Penghasilan bulanan (opsional)             |
+| created_at   | TIMESTAMP        | Tanggal dibuat                             |
+| updated_at   | TIMESTAMP        | Tanggal diperbarui                         |
+
+### D. Tabel `sales`
+
+| Field        | Tipe Data        | Deskripsi                             |
+|--------------|------------------|----------------------------------------|
+| id           | BIGINT           | Primary key                            |
+| user_id      | BIGINT           | Relasi ke tabel `users`                |
+| kode_sales   | VARCHAR(20)      | Kode unik sales                        |
+| wilayah      | VARCHAR(100)     | Area penjualan                         |
+| created_at   | TIMESTAMP        | Tanggal dibuat                         |
+| updated_at   | TIMESTAMP        | Tanggal diperbarui                     |
+
+### E. Tabel `transactions`
+
+| Field         | Tipe Data                        | Deskripsi                          |
+|---------------|----------------------------------|-------------------------------------|
+| id            | BIGINT                           | Primary key                         |
+| customer_id   | BIGINT                           | Relasi ke tabel `customers`         |
+| sales_id      | BIGINT                           | Relasi ke tabel `sales`             |
+| motorcycle_id | BIGINT                           | Relasi ke tabel `motorcycles`       |
+| jumlah        | INTEGER                          | Jumlah unit dibeli                  |
+| total_harga   | DECIMAL(12,2)                    | Total harga                         |
+| status        | ENUM('pending', 'approved', 'cancelled') | Status transaksi         |
+| created_at    | TIMESTAMP                        | Tanggal dibuat                      |
+| updated_at    | TIMESTAMP                        | Tanggal diperbarui                  |
+
+### F. Tabel `motorcycle_images`
+
+| Field        | Tipe Data      | Deskripsi                         |
+|--------------|----------------|------------------------------------|
+| id           | BIGINT         | Primary key                        |
+| motorcycle_id| BIGINT         | Relasi ke tabel `motorcycles`      |
+| image_path   | VARCHAR(255)   | Path atau nama file gambar         |
+| created_at   | TIMESTAMP      | Tanggal dibuat                     |
+| updated_at   | TIMESTAMP      | Tanggal diperbarui                 |
+
+---
+
+## Relasi Antar Tabel
+
+1. **users → customers**: One-to-One  
+   Setiap pengguna dengan role customer memiliki satu data detail customer.
+
+2. **users → sales**: One-to-One  
+   Setiap pengguna dengan role sales memiliki satu data detail sales.
+
+3. **customers → transactions**: One-to-Many  
+   Satu customer dapat memiliki banyak transaksi pembelian.
+
+4. **sales → transactions**: One-to-Many  
+   Satu sales dapat melayani banyak transaksi.
+
+5. **motorcycles → transactions**: One-to-Many  
+   Satu motor bisa terlibat dalam banyak transaksi.
+
+6. **motorcycles → motorcycle_images**: One-to-Many  
+   Satu motor dapat memiliki banyak gambar.
+
+7. **users → logs**: One-to-Many  
+   Setiap user (customer, admin, kurir) dapat memiliki banyak log aktivitas.
+
+8. **orders → couriers**: Many-to-One  
+   Setiap order (pesanan) hanya dapat ditangani oleh satu kurir pada satu waktu.
+
+---
